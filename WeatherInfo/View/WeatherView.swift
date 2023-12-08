@@ -16,6 +16,35 @@ struct WeatherView: View {
             VStack(spacing: 10) {
                 cityView
                 temperaturePerDay
+                VStack {
+                    HStack {
+                        Text("Прогноз на следующие 6 часов:")
+                            .font(.custom("AvenirNext-Bold", size: 16))
+                        Spacer()
+                    }
+                    Divider()
+                        .background(.white)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach( 0 ..< viewModel.statisticsByHour.count, id: \.self) { index in
+                                VStack(spacing: 0) {
+                                    Text((index == 0) ? "Сейчас" : viewModel.statisticsByHour[index].hour)
+                                        .font(.custom("AvenirNext-Bold", size: 16))
+                                    Image(viewModel.statisticsByHour[index].imageName)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 70, height: 70)
+                                    Text(viewModel.tempDescription(viewModel.statisticsByHour[index].temp))
+                                        .font(.custom("AvenirNext-Bold", size: 16))
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding()
+                .background(Color("BackgroundElement"))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal)
             }
             Spacer()
         }
