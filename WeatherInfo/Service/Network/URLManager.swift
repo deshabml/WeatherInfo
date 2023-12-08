@@ -8,6 +8,7 @@
 import Foundation
 
 enum Endpoint: String {
+    
     case currentWeather = "/data/2.5/weather"
     case currentOnecall = "/data/2.5/onecall?"
 }
@@ -37,5 +38,4 @@ class URLManager {
         let url = URL(string: str)
         return url
     }
-
 }

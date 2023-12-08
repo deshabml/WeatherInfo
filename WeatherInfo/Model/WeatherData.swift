@@ -60,5 +60,4 @@ struct WeatherData: Identifiable, Decodable {
         let deg: Int
         let gust: Double?
     }
-
 }
