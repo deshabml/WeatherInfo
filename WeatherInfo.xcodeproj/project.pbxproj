@@ -16,6 +16,11 @@
 		DDC158972B22F7F4005CF73A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DDC158962B22F7F4005CF73A /* SwiftyJSON */; };
 		DDC1589A2B22F89F005CF73A /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158992B22F89F005CF73A /* WeatherView.swift */; };
 		DDC1589D2B22F8DB005CF73A /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC1589C2B22F8DB005CF73A /* WeatherViewModel.swift */; };
+		DDC1589F2B22FE98005CF73A /* NetworkServiceAA.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC1589E2B22FE98005CF73A /* NetworkServiceAA.swift */; };
+		DDC158A12B22FEB3005CF73A /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158A02B22FEB3005CF73A /* NetworkError.swift */; };
+		DDC158A32B22FECE005CF73A /* CityQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158A22B22FECE005CF73A /* CityQuery.swift */; };
+		DDC158A52B22FEF1005CF73A /* ParsingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158A42B22FEF1005CF73A /* ParsingService.swift */; };
+		DDC158A72B230004005CF73A /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158A62B230004005CF73A /* LocationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		DDC158932B22F785005CF73A /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		DDC158992B22F89F005CF73A /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		DDC1589C2B22F8DB005CF73A /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		DDC1589E2B22FE98005CF73A /* NetworkServiceAA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceAA.swift; sourceTree = "<group>"; };
+		DDC158A02B22FEB3005CF73A /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		DDC158A22B22FECE005CF73A /* CityQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityQuery.swift; sourceTree = "<group>"; };
+		DDC158A42B22FEF1005CF73A /* ParsingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingService.swift; sourceTree = "<group>"; };
+		DDC158A62B230004005CF73A /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,7 @@
 		DDC1588E2B22F730005CF73A /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				DDC158A62B230004005CF73A /* LocationService.swift */,
 				DDC1588F2B22F744005CF73A /* Network */,
 			);
 			path = Service;
@@ -108,6 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				DDC158902B22F754005CF73A /* URLManager.swift */,
+				DDC1589E2B22FE98005CF73A /* NetworkServiceAA.swift */,
+				DDC158A02B22FEB3005CF73A /* NetworkError.swift */,
+				DDC158A42B22FEF1005CF73A /* ParsingService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -116,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				DDC158932B22F785005CF73A /* WeatherData.swift */,
+				DDC158A22B22FECE005CF73A /* CityQuery.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,12 +228,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC158A52B22FEF1005CF73A /* ParsingService.swift in Sources */,
 				DDC1589A2B22F89F005CF73A /* WeatherView.swift in Sources */,
+				DDC158A12B22FEB3005CF73A /* NetworkError.swift in Sources */,
 				DDC1589D2B22F8DB005CF73A /* WeatherViewModel.swift in Sources */,
 				DD0EE8CA2B22401A00DE6B8C /* ContentView.swift in Sources */,
 				DD0EE8C82B22401A00DE6B8C /* WeatherInfoApp.swift in Sources */,
+				DDC158A72B230004005CF73A /* LocationService.swift in Sources */,
 				DDC158942B22F785005CF73A /* WeatherData.swift in Sources */,
+				DDC1589F2B22FE98005CF73A /* NetworkServiceAA.swift in Sources */,
 				DDC158912B22F754005CF73A /* URLManager.swift in Sources */,
+				DDC158A32B22FECE005CF73A /* CityQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +375,7 @@
 				DEVELOPMENT_TEAM = 62VLSN5H88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Необходим доступ к  местоположению, чтобы определить город";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -387,6 +408,7 @@
 				DEVELOPMENT_TEAM = 62VLSN5H88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Необходим доступ к  местоположению, чтобы определить город";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
