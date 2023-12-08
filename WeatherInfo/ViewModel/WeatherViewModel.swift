@@ -31,7 +31,7 @@ final class WeatherViewModel: ObservableObject {
     func loadFirstCity() {
         let locationService = LocationService()
         locationService.getCityName { [unowned self] cityName in
-            city = cityName
+            city = cityName.localizedCapitalized
             getData()
         }
         print(city)
@@ -41,11 +41,8 @@ final class WeatherViewModel: ObservableObject {
         Task {
             do {
                 let data = try await NetworkServiceAA.shared.getWeatherData(city: city)
-//                let statisticData = try await NetworkServiceAA.shared.getStatistics(weatherData: data)
                 DispatchQueue.main.async { [unowned self] in
                     self.weatherData = data
-                    print(weatherData?.weather.description)
-//                    self.statistics = statisticData
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -66,6 +63,13 @@ final class WeatherViewModel: ObservableObject {
 
     func temperatureRange() -> String {
         "Max: " + tempDescription(weatherData?.main.tempMax) + ", min: " + tempDescription(weatherData?.main.tempMin)
+    }
+
+    func weatherDescriptionText() -> String {
+        guard let weatherData, !weatherData.weather.isEmpty else {
+            return "-"
+        }
+        return weatherData.weather[0].description
     }
 
 }

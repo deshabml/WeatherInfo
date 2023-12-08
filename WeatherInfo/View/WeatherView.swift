@@ -60,11 +60,17 @@ extension WeatherView {
     private var temperaturePerDay: some View {
         VStack(spacing: 6) {
             Text(viewModel.tempDescription(viewModel.weatherData?.main.temp))
-                .font(.custom("AvenirNext-Bold", size: 80))
+                .font(.custom("AvenirNext-Bold", size: 60))
+                .background(
+                    Color("DarkSea").blur(radius: 30))
+            Text(viewModel.weatherDescriptionText())
+                .font(.custom("AvenirNext-Bold", size: 20))
+                .background(
+                    Color("DarkSea").blur(radius: 30))
             Text(viewModel.temperatureRange())
                 .font(.custom("AvenirNext-Bold", size: 20))
+                .background(
+                    Color("DarkSea").blur(radius: 30))
         }
-        .background(
-            Color("DarkSea").blur(radius: 30))
     }
 }
