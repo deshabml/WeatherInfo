@@ -9,10 +9,11 @@ import SwiftUI
 
 @main
 struct WeatherInfoApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .environmentObject(Coordinator())
         }
     }
 }
