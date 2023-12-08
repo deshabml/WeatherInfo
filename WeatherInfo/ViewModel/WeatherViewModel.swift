@@ -10,22 +10,16 @@ import Foundation
 final class WeatherViewModel: ObservableObject {
 
     @Published var weatherData: WeatherData?
-    @Published var city: String = "" 
-//    {
-//        didSet {
-//            checkCity(text: city)
-//        }
-//    }
+    @Published var city: String = "" {
+        didSet {
+            checkCity(text: city)
+        }
+    }
     @Published var isChoosingCity = true
     @Published var citys: [String] = []
     @Published var statistics: [(min: Double, max: Double, pop: Int, utc: Int)] = []
     @Published var statisticsByHour: [WeatherByHour] = [] 
-//    {
-//        didSet {
-//            guard !statisticsByHour.isEmpty else { return }
-//            statisticsByHour[0].hour = "Сейчас"
-//        }
-//    }
+
     var isCityExists: Bool {
         citys.count > 0
     }
@@ -67,6 +61,21 @@ final class WeatherViewModel: ObservableObject {
                 }
             } catch let error {
                 print(error.localizedDescription)
+            }
+        }
+    }
+
+    func checkCity(text: String) {
+//        DataService.shared.saveCity(city)
+        Task {
+            do {
+                let data = try await NetworkServiceAA.shared.checkCity(city: CityQuery(query: text, count: 5))
+                DispatchQueue.main.async { [unowned self] in
+                    self.citys = data
+                    print(self.citys)
+                }
+            } catch {
+                print(error)
             }
         }
     }
