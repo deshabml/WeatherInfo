@@ -13,6 +13,7 @@
 		DD0EE8CF2B22401C00DE6B8C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD0EE8CE2B22401C00DE6B8C /* Preview Assets.xcassets */; };
 		DDC158912B22F754005CF73A /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158902B22F754005CF73A /* URLManager.swift */; };
 		DDC158942B22F785005CF73A /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158932B22F785005CF73A /* WeatherData.swift */; };
+		DDC158972B22F7F4005CF73A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DDC158962B22F7F4005CF73A /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC158972B22F7F4005CF73A /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +131,9 @@
 			dependencies = (
 			);
 			name = WeatherInfo;
+			packageProductDependencies = (
+				DDC158962B22F7F4005CF73A /* SwiftyJSON */,
+			);
 			productName = WeatherInfo;
 			productReference = DD0EE8C42B22401900DE6B8C /* WeatherInfo.app */;
 			productType = "com.apple.product-type.application";
@@ -157,6 +162,9 @@
 				Base,
 			);
 			mainGroup = DD0EE8BB2B22401900DE6B8C;
+			packageReferences = (
+				DDC158952B22F7F4005CF73A /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = DD0EE8C52B22401900DE6B8C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -398,6 +406,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DDC158952B22F7F4005CF73A /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DDC158962B22F7F4005CF73A /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDC158952B22F7F4005CF73A /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DD0EE8BC2B22401900DE6B8C /* Project object */;
 }
