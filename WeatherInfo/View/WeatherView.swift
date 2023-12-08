@@ -13,7 +13,10 @@ struct WeatherView: View {
 
     var body: some View {
         VStack {
-            cityView
+            VStack(spacing: 10) {
+                cityView
+                temperaturePerDay
+            }
             Spacer()
         }
         .foregroundColor(.white)
@@ -52,5 +55,16 @@ extension WeatherView {
             }
         }
         .frame(height: 50)
+    }
+
+    private var temperaturePerDay: some View {
+        VStack(spacing: 6) {
+            Text(viewModel.tempDescription(viewModel.weatherData?.main.temp))
+                .font(.custom("AvenirNext-Bold", size: 80))
+            Text(viewModel.temperatureRange())
+                .font(.custom("AvenirNext-Bold", size: 20))
+        }
+        .background(
+            Color("DarkSea").blur(radius: 30))
     }
 }

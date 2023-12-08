@@ -48,13 +48,13 @@ class NetworkServiceAA {
         } catch { throw error }
     }
 
-    func getStatistics(weatherData: WeatherData) async throws -> [(min: Double, max: Double, pop: Int, utc: Int)] {
-        guard let url = URLManager.shared.createOnecallURL(weatherData: weatherData, endpoint: .currentOnecall) else { throw NetworkError.badUrl }
-        let response = try await URLSession.shared.data(from: url)
-        let data = response.0
-        guard let itog = ParsingService.shared.statistics(from: data) else { throw NetworkError.invalidDecoding }
-        return itog
-    }
+//    func getStatistics(weatherData: WeatherData) async throws -> [(min: Double, max: Double, pop: Int, utc: Int)] {
+//        guard let url = URLManager.shared.createOnecallURL(weatherData: weatherData, endpoint: .currentOnecall) else { throw NetworkError.badUrl }
+//        let response = try await URLSession.shared.data(from: url)
+//        let data = response.0
+//        guard let itog = ParsingService.shared.statistics(from: data) else { throw NetworkError.invalidDecoding }
+//        return itog
+//    }
 }
 
 
