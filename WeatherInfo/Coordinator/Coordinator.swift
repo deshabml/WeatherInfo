@@ -22,25 +22,17 @@ final class Coordinator: ObservableObject {
         path.removeLast()
     }
 
-//    func goToHotelRoom() {
-//        path.append(MyPage.hotelRoom)
-//    }
-//
-//    func goToBookingView() {
-//        path.append(MyPage.booking)
-//    }
-//
-//    func goToPaidView() {
-//        path.append(MyPage.paid)
-//    }
+    func goToWeatherSelectCity() {
+        path.append(MyPage.weatherSelectCityView)
+    }
 
     @ViewBuilder
     func getPage(_ page: MyPage) -> some View {
         switch page {
             case .weatherView:
                 WeatherView(viewModel: WeatherViewModel())
-            case .weatherSelectCity:
-                WeatherView(viewModel: WeatherViewModel())
+            case .weatherSelectCityView:
+                WeatherSelectCityView()
         }
     }
 }

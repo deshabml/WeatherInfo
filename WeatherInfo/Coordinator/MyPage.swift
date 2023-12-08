@@ -9,7 +9,7 @@ import Foundation
 
 enum MyPage: String, CaseIterable, Identifiable {
 
-    case weatherView, weatherSelectCity
+    case weatherView, weatherSelectCityView
 
     var id: String {self.rawValue}
 }

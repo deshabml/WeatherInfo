@@ -14,6 +14,8 @@
 		DD48447B2B23BB7A00DA6025 /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD48447A2B23BB7A00DA6025 /* MyPage.swift */; };
 		DD48447D2B23BC1C00DA6025 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD48447C2B23BC1C00DA6025 /* Coordinator.swift */; };
 		DD48447F2B23BCD700DA6025 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD48447E2B23BCD700DA6025 /* MainView.swift */; };
+		DD4844812B23BEBD00DA6025 /* WeatherSelectCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4844802B23BEBD00DA6025 /* WeatherSelectCityView.swift */; };
+		DD4844842B23C02200DA6025 /* BackgroundElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4844832B23C02200DA6025 /* BackgroundElement.swift */; };
 		DDC158912B22F754005CF73A /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158902B22F754005CF73A /* URLManager.swift */; };
 		DDC158942B22F785005CF73A /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158932B22F785005CF73A /* WeatherData.swift */; };
 		DDC158972B22F7F4005CF73A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DDC158962B22F7F4005CF73A /* SwiftyJSON */; };
@@ -35,6 +37,8 @@
 		DD48447A2B23BB7A00DA6025 /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 		DD48447C2B23BC1C00DA6025 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DD48447E2B23BCD700DA6025 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		DD4844802B23BEBD00DA6025 /* WeatherSelectCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSelectCityView.swift; sourceTree = "<group>"; };
+		DD4844832B23C02200DA6025 /* BackgroundElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundElement.swift; sourceTree = "<group>"; };
 		DDC158902B22F754005CF73A /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		DDC158932B22F785005CF73A /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		DDC158992B22F89F005CF73A /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 				DDC158922B22F76E005CF73A /* Model */,
 				DDC158982B22F879005CF73A /* View */,
 				DDC1589B2B22F8C2005CF73A /* ViewModel */,
+				DD4844822B23BFFB00DA6025 /* Modifiers */,
 				DD4844792B23BB6100DA6025 /* Coordinator */,
 				DDC1588E2B22F730005CF73A /* Service */,
 				DD0EE8D52B22423000DE6B8C /* Supporting files */,
@@ -112,6 +117,14 @@
 				DD48447C2B23BC1C00DA6025 /* Coordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		DD4844822B23BFFB00DA6025 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				DD4844832B23C02200DA6025 /* BackgroundElement.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		DDC1588D2B22F6C5005CF73A /* Application */ = {
@@ -157,6 +170,7 @@
 			children = (
 				DD48447E2B23BCD700DA6025 /* MainView.swift */,
 				DDC158992B22F89F005CF73A /* WeatherView.swift */,
+				DD4844802B23BEBD00DA6025 /* WeatherSelectCityView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -245,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD4844812B23BEBD00DA6025 /* WeatherSelectCityView.swift in Sources */,
 				DDC158A52B22FEF1005CF73A /* ParsingService.swift in Sources */,
 				DDC1589A2B22F89F005CF73A /* WeatherView.swift in Sources */,
 				DDC158A12B22FEB3005CF73A /* NetworkError.swift in Sources */,
@@ -256,6 +271,7 @@
 				DDC158A72B230004005CF73A /* LocationService.swift in Sources */,
 				DDC158942B22F785005CF73A /* WeatherData.swift in Sources */,
 				DDC1589F2B22FE98005CF73A /* NetworkServiceAA.swift in Sources */,
+				DD4844842B23C02200DA6025 /* BackgroundElement.swift in Sources */,
 				DDC158912B22F754005CF73A /* URLManager.swift in Sources */,
 				DD48447F2B23BCD700DA6025 /* MainView.swift in Sources */,
 				DDC158A32B22FECE005CF73A /* CityQuery.swift in Sources */,
