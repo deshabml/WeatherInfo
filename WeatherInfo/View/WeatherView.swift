@@ -10,41 +10,17 @@ import SwiftUI
 struct WeatherView: View {
 
     @StateObject var viewModel: WeatherViewModel
+    @State var isShowSearch = false
 
     var body: some View {
         VStack {
             VStack(spacing: 10) {
-                cityView
-                temperaturePerDay
-                VStack {
-                    HStack {
-                        Text("Прогноз на следующие 6 часов:")
-                            .font(.custom("AvenirNext-Bold", size: 16))
-                        Spacer()
-                    }
-                    Divider()
-                        .background(.white)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            ForEach( 0 ..< viewModel.statisticsByHour.count, id: \.self) { index in
-                                VStack(spacing: 0) {
-                                    Text((index == 0) ? "Сейчас" : viewModel.statisticsByHour[index].hour)
-                                        .font(.custom("AvenirNext-Bold", size: 16))
-                                    Image(viewModel.statisticsByHour[index].imageName)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 70, height: 70)
-                                    Text(viewModel.tempDescription(viewModel.statisticsByHour[index].temp))
-                                        .font(.custom("AvenirNext-Bold", size: 16))
-                                }
-                            }
-                        }
-                    }
+                ZStack {
+                    cityView
+                    SearchButton
                 }
-                .padding()
-                .background(Color("BackgroundElement"))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal)
+                temperaturePerDay
+                weatherByHours
             }
             Spacer()
         }
@@ -67,22 +43,10 @@ struct WeatherView: View {
 extension WeatherView {
 
     private var cityView: some View {
-        VStack {
-            if viewModel.isChoosingCity {
-                    TextField("Город", text: $viewModel.city)
-                        .font(.custom("AvenirNext-Bold", size: 24))
-                        .padding()
-                        .multilineTextAlignment(.center)
-                        .background(
-                            Color("DarkSea").blur(radius: 30))
-            } else {
-                Text(viewModel.weatherData?.name ?? "-")
-                    .font(.custom("AvenirNext-Bold", size: 24))
-                    .onTapGesture {
-                        viewModel.isChoosingCity.toggle()
-                    }
-            }
-        }
+        Text(viewModel.weatherData?.name ?? "-")
+            .font(.custom("AvenirNext-Bold", size: 24))
+            .background(
+                Color("DarkSea").blur(radius: 30))
         .frame(height: 50)
     }
 
@@ -99,7 +63,54 @@ extension WeatherView {
             Text(viewModel.temperatureRange())
                 .font(.custom("AvenirNext-Bold", size: 20))
                 .background(
-                    Color("DarkSea").blur(radius: 30))
+                    Color("DarkSea").blur(radius: 20))
+        }
+    }
+
+    private var weatherByHours: some View {
+        VStack {
+            HStack {
+                Text("Прогноз на следующие 6 часов:")
+                    .font(.custom("AvenirNext-Bold", size: 16))
+                Spacer()
+            }
+            Divider()
+                .background(.white)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach( 0 ..< viewModel.statisticsByHour.count, id: \.self) { index in
+                        VStack(spacing: 0) {
+                            Text((index == 0) ? "Сейчас" : viewModel.statisticsByHour[index].hour)
+                                .font(.custom("AvenirNext-Bold", size: 16))
+                            Image(viewModel.statisticsByHour[index].imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 70, height: 70)
+                            Text(viewModel.tempDescription(viewModel.statisticsByHour[index].temp))
+                                .font(.custom("AvenirNext-Bold", size: 16))
+                        }
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(Color("BackgroundElement"))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal)
+    }
+
+    private var SearchButton: some View {
+        HStack {
+            Spacer()
+            Button {
+                isShowSearch.toggle()
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 40, height: 40)
+            }
+            .padding(.horizontal)
         }
     }
 }
