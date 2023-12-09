@@ -60,4 +60,29 @@ struct WeatherData: Identifiable, Decodable {
         let deg: Int
         let gust: Double?
     }
+
+    static var weatherDataClear = WeatherData(id: 0,
+                                              name: "-",
+                                              cod: 0,
+                                              timezone: 0,
+                                              dt: 0,
+                                              visibility: 0,
+                                              base: "-",
+                                              weather: [],
+                                              clouds: Clouds(all: 0),
+                                              main: Main(temp: 0,
+                                                         feelsLike: 0,
+                                                         tempMin: 0,
+                                                         tempMax: 0,
+                                                         pressure: 0,
+                                                         humidity: 0,
+                                                         seaLevel: 0,
+                                                         grndLevel: 0),
+                                              coord: Coord(lat: 0,
+                                                           lon: 0),
+                                              wind: Wind(speed: 0,
+                                                         deg: 0,
+                                                         gust: 0),
+                                              sys: Sys(sunrise: 0,
+                                                       sunset: 0))
 }

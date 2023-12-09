@@ -12,7 +12,7 @@ final class Coordinator: ObservableObject {
 
     @Published var path = NavigationPath()
     @Published var page: MyPage = .weatherView
-    var hotelName: String = ""
+    var selectedCity: String = ""
 
     func goHome() {
         path.removeLast(path.count)
@@ -22,7 +22,8 @@ final class Coordinator: ObservableObject {
         path.removeLast()
     }
 
-    func goToWeatherSelectCity() {
+    func goToWeatherSelectCity(city: String) {
+        setupSelectedCity(city: city)
         path.append(MyPage.weatherSelectCityView)
     }
 
@@ -32,15 +33,35 @@ final class Coordinator: ObservableObject {
             case .weatherView:
                 WeatherView(viewModel: WeatherViewModel())
             case .weatherSelectCityView:
-                WeatherSelectCityView()
+                WeatherSelectCityView(viewModel: WeatherSelectCityViewModel())
         }
     }
 }
 
 extension Coordinator {
 
-//    func setupHotelName(hotelName: String) {
-//        self.hotelName = hotelName
-//    }
+    func setupSelectedCity(city: String) {
+        self.selectedCity = city
+    }
 
+    func tempDescription(_ temp: Double) -> String {
+        guard temp != 0 else { return "-" }
+        if let langStr = Locale.current.language.languageCode {
+            print(langStr)
+        }
+        let res = "\(Int(temp - 273))°С"
+        return res
+    }
+
+    func temperatureRange(weatherData: WeatherData) -> String {
+        guard weatherData.name != "" else { return "-"}
+        return "Max: " + tempDescription(weatherData.main.tempMax) + ", min: " + tempDescription(weatherData.main.tempMin)
+    }
+
+    func weatherDescriptionText(weatherData: WeatherData) -> String {
+        guard !weatherData.weather.isEmpty else {
+            return "-"
+        }
+        return weatherData.weather[0].description
+    }
 }

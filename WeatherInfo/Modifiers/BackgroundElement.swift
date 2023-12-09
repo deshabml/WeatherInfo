@@ -58,5 +58,4 @@ extension BackgroundElement {
                 .foregroundColor(.white)
         }
     }
-
 }

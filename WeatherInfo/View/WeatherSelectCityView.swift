@@ -10,23 +10,57 @@ import SwiftUI
 struct WeatherSelectCityView: View {
 
     @EnvironmentObject var coordinator: Coordinator
+    @StateObject var viewModel: WeatherSelectCityViewModel
 
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-            }
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            CityView(viewModel: viewModel.cityVM)
+            temperaturePerDay
             Spacer()
         }
         .modifier(BackgroundElement(completion: {
             coordinator.goBack()
         }))
+        .onAppear {
+            viewModel.getWeather(city: coordinator.selectedCity)
+        }
     }
-
 }
 
 #Preview {
-    WeatherSelectCityView()
+
+    WeatherSelectCityView(viewModel: WeatherSelectCityViewModel())
         .environmentObject(Coordinator())
+}
+
+extension WeatherSelectCityView {
+
+    private var temperaturePerDay: some View {
+        VStack(spacing: 6) {
+            Text(coordinator.tempDescription(viewModel.weatherData.main.temp))
+                .font(.custom("AvenirNext-Bold",
+                              size: 60))
+            Divider()
+                .background(.white)
+            if viewModel.weatherData.weather.isEmpty {
+                Text(coordinator.weatherDescriptionText(weatherData: viewModel.weatherData))
+                    .font(.custom("AvenirNext-Bold",
+                                  size: 20))
+            } else {
+                Image(viewModel.weatherData.weather[0].icon)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100,
+                           height: 100)
+            }
+
+            Text(coordinator.temperatureRange(weatherData: viewModel.weatherData))
+                .font(.custom("AvenirNext-Bold",
+                              size: 20))
+        }
+        .padding()
+        .background(Color("BackgroundElement"))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal)
+    }
 }

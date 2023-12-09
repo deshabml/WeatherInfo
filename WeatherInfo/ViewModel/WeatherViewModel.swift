@@ -9,7 +9,7 @@ import Foundation
 
 final class WeatherViewModel: ObservableObject {
 
-    @Published var weatherData: WeatherData?
+    @Published var weatherData: WeatherData = WeatherData.weatherDataClear
     @Published var city: String = "" {
         didSet {
             checkCity(text: city)
@@ -18,7 +18,7 @@ final class WeatherViewModel: ObservableObject {
     @Published var citys: [String] = []
     @Published var statistics: [(min: Double, max: Double, pop: Int, utc: Int)] = []
     @Published var statisticsByHour: [WeatherByHour] = []
-
+    let cityVM = CityViewModel()
     init() {
         loadFirstCity()
     }
@@ -38,6 +38,7 @@ final class WeatherViewModel: ObservableObject {
                 let data = try await NetworkServiceAA.shared.getWeatherData(city: city)
                 DispatchQueue.main.async { [unowned self] in
                     self.weatherData = data
+                    self.cityVM.setupText(text: weatherData.name)
                     self.getStatisticsByHour()
                 }
             } catch let error {
@@ -47,7 +48,6 @@ final class WeatherViewModel: ObservableObject {
     }
 
     func getStatisticsByHour() {
-        guard let weatherData else { return }
         Task {
             do {
                 let data = try await NetworkServiceAA.shared.getStatisticsByHour(weatherData: weatherData)
@@ -72,28 +72,6 @@ final class WeatherViewModel: ObservableObject {
                 print(error)
             }
         }
-    }
-
-    func tempDescription(_ temp: Double?) -> String {
-        guard let temp else {
-            return "-"
-        }
-        if let langStr = Locale.current.language.languageCode {
-            print(langStr)
-        }
-        let res = "\(Int(temp - 273))°С"
-        return res
-    }
-
-    func temperatureRange() -> String {
-        "Max: " + tempDescription(weatherData?.main.tempMax) + ", min: " + tempDescription(weatherData?.main.tempMin)
-    }
-
-    func weatherDescriptionText() -> String {
-        guard let weatherData, !weatherData.weather.isEmpty else {
-            return "-"
-        }
-        return weatherData.weather[0].description
     }
 }
 

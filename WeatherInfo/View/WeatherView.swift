@@ -17,7 +17,7 @@ struct WeatherView: View {
         ZStack {
             VStack {
                 VStack(spacing: 10) {
-                    cityView
+                    CityView(viewModel: viewModel.cityVM)
                     temperaturePerDay
                     weatherByHours
                 }
@@ -49,28 +49,19 @@ struct WeatherView: View {
 
 extension WeatherView {
 
-    private var cityView: some View {
-        Text(viewModel.weatherData?.name ?? "-")
-            .font(.custom("AvenirNext-Bold",
-                          size: 24))
-            .background(
-                Color("DarkSea").blur(radius: 30))
-        .frame(height: 50)
-    }
-
     private var temperaturePerDay: some View {
         VStack(spacing: 6) {
-            Text(viewModel.tempDescription(viewModel.weatherData?.main.temp))
+            Text(coordinator.tempDescription(viewModel.weatherData.main.temp))
                 .font(.custom("AvenirNext-Bold",
                               size: 60))
                 .background(
                     Color("DarkSea").blur(radius: 30))
-            Text(viewModel.weatherDescriptionText())
+            Text(coordinator.weatherDescriptionText(weatherData: viewModel.weatherData))
                 .font(.custom("AvenirNext-Bold",
                               size: 20))
                 .background(
                     Color("DarkSea").blur(radius: 30))
-            Text(viewModel.temperatureRange())
+            Text(coordinator.temperatureRange(weatherData: viewModel.weatherData))
                 .font(.custom("AvenirNext-Bold",
                               size: 20))
                 .background(
@@ -100,7 +91,7 @@ extension WeatherView {
                                 .scaledToFit()
                                 .frame(width: 70,
                                        height: 70)
-                            Text(viewModel.tempDescription(viewModel.statisticsByHour[index].temp))
+                            Text(coordinator.tempDescription(viewModel.statisticsByHour[index].temp))
                                 .font(.custom("AvenirNext-Bold",
                                               size: 16))
                         }
@@ -148,7 +139,7 @@ extension WeatherView {
                             .background(.black)
                         ForEach(0 ..< viewModel.citys.count, id: \.self) { index in
                             Button {
-                                coordinator.goToWeatherSelectCity()
+                                coordinator.goToWeatherSelectCity(city: viewModel.citys[index])
                             } label: {
                                 HStack {
                                     Text(viewModel.citys[index])
