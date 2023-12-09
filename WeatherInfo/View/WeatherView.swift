@@ -39,7 +39,6 @@ struct WeatherView: View {
         .animation(.easeInOut(duration: 0.3),
                    value: isShowSearch)
     }
-    
 }
 
 #Preview {
