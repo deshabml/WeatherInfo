@@ -26,41 +26,6 @@ final class WeatherViewModel: ObservableObject {
         } else {
             getData()
         }
-
-        let dateLastSaveDatas = RealmService.shared.getDataLastSave()
-
-        if !dateLastSaveDatas.isEmpty {
-            let dateLastSave = dateLastSaveDatas[0]
-            print(dateLastSave.date)
-            let currentDate = Date()
-            print(currentDate.offsetFrom(date: dateLastSave.date))
-        }
-
-//        let oldDate = Date()
-//        let oldDateUtc = ISO8601DateFormatter().string(from: oldDate)
-//        let oldDateString = "\(oldDate)"
-//
-//        print(oldDateString)
-//
-//        var dateString: String = "2017-05-04 13:46:36.0"
-//        var dateFormatter1 = DateFormatter()
-//        dateFormatter1.dateFormat = "yyyy-MM-dd HH:mm:ss +SSSS"
-//        var yourDate: Date? = dateFormatter1.date(from: oldDateString)
-////        dateFormatter1.dateFormat = "yyyy-MM-dd"
-//        if let yourDate {
-//            print(yourDate)
-//        }
-//        print(oldDateString)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-//            let newDate = Date()
-//            print(newDate.offsetFrom(date: oldDate))
-//        }
-
-//        let dt = jsons[index]["dt"].doubleValue
-//        let date = Date(timeIntervalSince1970: dt)
-//        let dateString = "\(date)"
-//        let dateStringArray = dateString.components(separatedBy: " ")
-//        let dateHourStringArray = dateStringArray[1].components(separatedBy: ":")
     }
 
     func loadFirstCity() {
@@ -178,6 +143,14 @@ final class WeatherViewModel: ObservableObject {
             RealmService.shared.updateObject(oldObject: dateLastSaveDatas[0],
                                              newObject: currentDateLastSave)
         }
+    }
+
+    func dataRelevanceInterval() -> String {
+        let dateLastSaveDatas = RealmService.shared.getDataLastSave()
+        guard !dateLastSaveDatas.isEmpty else { return "-" }
+        let dateLastSave = dateLastSaveDatas[0]
+        let currentDate = Date()
+        return currentDate.offsetFrom(date: dateLastSave.date) + " назад"
     }
 
 
