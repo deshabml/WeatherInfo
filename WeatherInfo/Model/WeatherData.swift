@@ -6,83 +6,38 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct WeatherData: Identifiable, Decodable {
+final class WeatherData: Object {
 
-    let id: Int
-    let name: String
-    let cod: Int
-    let timezone: Int
-    let dt: Int
-    let visibility: Int
-    let base: String
-    let weather: [Weather]
-    let clouds: Clouds
-    let main: Main
-    let coord: Coord
-    let wind: Wind
-    let sys: Sys
+    @Persisted(primaryKey: true) var id = UUID().uuidString
+    @Persisted var name: String
+    @Persisted var mainTemp: Double
+    @Persisted var mainTempMin: Double
+    @Persisted var mainTempMax: Double
+    @Persisted var weatherDescription: String
+    @Persisted var weatherIcon: String
+    @Persisted var coordLat: Double
+    @Persisted var coordLon: Double
 
-    struct Sys: Decodable {
-        let sunrise: Int
-        let sunset: Int
+    convenience init(name: String, mainTemp: Double, mainTempMin: Double, mainTempMax: Double, weatherDescription: String, weatherIcon: String, coordLat: Double, coordLon: Double) {
+        self.init()
+        self.name = name
+        self.mainTemp = mainTemp
+        self.mainTempMin = mainTempMin
+        self.mainTempMax = mainTempMax
+        self.weatherDescription = weatherDescription
+        self.weatherIcon = weatherIcon
+        self.coordLat = coordLat
+        self.coordLon = coordLon
     }
 
-    struct Weather: Identifiable, Decodable {
-        let id: Int
-        let main: String
-        let description: String
-        let icon: String
-    }
-
-    struct Clouds: Decodable {
-        let all: Int
-    }
-
-    struct Coord: Decodable {
-        let lat: Double
-        let lon : Double
-    }
-
-    struct Main: Decodable {
-        let temp: Double
-        let feelsLike: Double
-        let tempMin: Double
-        let tempMax: Double
-        let pressure: Int
-        let humidity: Int
-        let seaLevel: Int?
-        let grndLevel: Int?
-    }
-
-    struct Wind: Decodable {
-        let speed: Double
-        let deg: Int
-        let gust: Double?
-    }
-
-    static var weatherDataClear = WeatherData(id: 0,
-                                              name: "-",
-                                              cod: 0,
-                                              timezone: 0,
-                                              dt: 0,
-                                              visibility: 0,
-                                              base: "-",
-                                              weather: [],
-                                              clouds: Clouds(all: 0),
-                                              main: Main(temp: 0,
-                                                         feelsLike: 0,
-                                                         tempMin: 0,
-                                                         tempMax: 0,
-                                                         pressure: 0,
-                                                         humidity: 0,
-                                                         seaLevel: 0,
-                                                         grndLevel: 0),
-                                              coord: Coord(lat: 0,
-                                                           lon: 0),
-                                              wind: Wind(speed: 0,
-                                                         deg: 0,
-                                                         gust: 0),
-                                              sys: Sys(sunrise: 0,
-                                                       sunset: 0))
+    static var weatherDataClear = WeatherData(name: "-",
+                                              mainTemp: 0,
+                                              mainTempMin: 0,
+                                              mainTempMax: 0,
+                                              weatherDescription: "-",
+                                              weatherIcon: "",
+                                              coordLat: 0,
+                                              coordLon: 0)
 }

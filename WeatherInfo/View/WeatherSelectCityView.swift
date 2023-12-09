@@ -37,17 +37,17 @@ extension WeatherSelectCityView {
 
     private var temperaturePerDay: some View {
         VStack(spacing: 6) {
-            Text(coordinator.tempDescription(viewModel.weatherData.main.temp))
+            Text(coordinator.tempDescription(viewModel.weatherData.mainTemp))
                 .font(.custom("AvenirNext-Bold",
                               size: 60))
             Divider()
                 .background(.white)
-            if viewModel.weatherData.weather.isEmpty {
-                Text(coordinator.weatherDescriptionText(weatherData: viewModel.weatherData))
+            if viewModel.weatherData.weatherIcon.isEmpty {
+                Text(viewModel.weatherData.weatherDescription)
                     .font(.custom("AvenirNext-Bold",
                                   size: 20))
             } else {
-                Image(viewModel.weatherData.weather[0].icon)
+                Image(viewModel.weatherData.weatherIcon)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 100,

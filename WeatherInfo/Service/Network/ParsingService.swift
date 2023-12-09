@@ -27,6 +27,26 @@ class ParsingService {
         return Array(Set(citys))
     }
 
+    func weatherData(from data: Data) -> WeatherData? {
+        guard let json = try? JSON(data: data) else { return nil }
+        let name = json["name"].stringValue
+        let mainTemp = json["main"]["temp"].doubleValue
+        let mainTempMin = json["main"]["temp_min"].doubleValue
+        let mainTempMax = json["main"]["temp_max"].doubleValue
+        let weatherDescription = json["weather"][0]["description"].stringValue
+        let weatherIcon = json["weather"][0]["icon"].stringValue
+        let coordLat = json["coord"]["lat"].doubleValue
+        let coordLon = json["coord"]["lon"].doubleValue
+        return WeatherData(name: name,
+                           mainTemp: mainTemp,
+                           mainTempMin: mainTempMin,
+                           mainTempMax: mainTempMax,
+                           weatherDescription: weatherDescription,
+                           weatherIcon: weatherIcon,
+                           coordLat: coordLat,
+                           coordLon: coordLon)
+    }
+
     func statisticsDaily(from data: Data) -> [WeatherByDay]? {
         guard let json = try? JSON(data: data) else { return nil }
         var itog: [WeatherByDay] = []

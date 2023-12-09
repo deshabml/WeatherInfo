@@ -31,8 +31,8 @@ class URLManager {
     }
 
     func createOnecallURL(weatherData: WeatherData, endpoint: Endpoint) -> URL? {
-        let lat = "lat=" + String(format: "%.4f", weatherData.coord.lat)
-        let lon = "lon=" + String(format: "%.4f", weatherData.coord.lon)
+        let lat = "lat=" + String(format: "%.4f", weatherData.coordLat)
+        let lon = "lon=" + String(format: "%.4f", weatherData.coordLon)
         var str = gateway + server + endpoint.rawValue + lat + "&" + lon
         str += "&appid=\(apiKey)"
         let url = URL(string: str)
