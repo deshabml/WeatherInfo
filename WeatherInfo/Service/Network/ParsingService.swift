@@ -27,16 +27,21 @@ class ParsingService {
         return Array(Set(citys))
     }
 
-    func statisticsDaily(from data: Data) -> [(min: Double, max: Double, pop: Int, utc: Int)]? {
+    func statisticsDaily(from data: Data) -> [WeatherByDay]? {
         guard let json = try? JSON(data: data) else { return nil }
-        var itog: [(min: Double, max: Double, pop: Int, utc: Int)] = []
+        var itog: [WeatherByDay] = []
         let jsons = json["daily"]
         for index in 0 ..< jsons.count {
             let min = jsons[index]["temp"]["min"].double ?? 0
             let max = jsons[index]["temp"]["max"].double ?? 0
             let pop = Int((jsons[index]["pop"].double ?? 0) * 100)
             let utc = jsons[index]["dt"].int ?? 0
-            itog.append((min, max, pop, utc))
+            let imageName = jsons[index]["weather"][0]["icon"].stringValue
+            itog.append(WeatherByDay(min: min,
+                                     max: max,
+                                     pop: pop,
+                                     utc: utc,
+                                     imageName: imageName))
         }
         return itog
     }

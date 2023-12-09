@@ -46,9 +46,6 @@ extension Coordinator {
 
     func tempDescription(_ temp: Double) -> String {
         guard temp != 0 else { return "-" }
-        if let langStr = Locale.current.language.languageCode {
-            print(langStr)
-        }
         let res = "\(Int(temp - 273))°С"
         return res
     }

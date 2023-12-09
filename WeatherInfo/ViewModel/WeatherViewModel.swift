@@ -16,7 +16,7 @@ final class WeatherViewModel: ObservableObject {
         }
     }
     @Published var citys: [String] = []
-    @Published var statistics: [(min: Double, max: Double, pop: Int, utc: Int)] = []
+    @Published var statisticsByDay: [WeatherByDay] = []
     @Published var statisticsByHour: [WeatherByHour] = []
     let cityVM = CityViewModel()
     init() {
@@ -29,7 +29,6 @@ final class WeatherViewModel: ObservableObject {
             city = cityName.localizedCapitalized
             getWeather()
         }
-        print(city)
     }
 
     func getWeather() {
@@ -40,6 +39,7 @@ final class WeatherViewModel: ObservableObject {
                     self.weatherData = data
                     self.cityVM.setupText(text: weatherData.name)
                     self.getStatisticsByHour()
+                    self.getStatisticsByDay()
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -60,18 +60,68 @@ final class WeatherViewModel: ObservableObject {
         }
     }
 
+    func getStatisticsByDay() {
+        Task {
+            do {
+                let data = try await NetworkServiceAA.shared.getStatisticsByDay(weatherData: weatherData)
+                DispatchQueue.main.async { [unowned self] in
+                    self.statisticsByDay = data
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     func checkCity(text: String) {
         Task {
             do {
                 let data = try await NetworkServiceAA.shared.checkCity(city: CityQuery(query: text, count: 5))
                 DispatchQueue.main.async { [unowned self] in
                     self.citys = data
-                    print(self.citys)
                 }
             } catch {
                 print(error)
             }
         }
+    }
+
+    func minStatistic() -> Double {
+        var min = statisticsByDay[0].min
+        for index in 0 ..< statisticsByDay.count {
+            if statisticsByDay[index].min < min {
+                min = statisticsByDay[index].min
+            }
+        }
+        return min
+    }
+
+    func maxStatistic() -> Double {
+        var max = statisticsByDay[0].max
+        for index in 0 ..< statisticsByDay.count {
+            if statisticsByDay[index].max > max {
+                max = statisticsByDay[index].max
+            }
+        }
+        return max
+    }
+
+    func widthDeyTemp(index: Int) -> Double {
+        let ratio = (maxStatistic() - minStatistic()) / (statisticsByDay[index].max - statisticsByDay[index].min)
+        return 140 / ratio
+    }
+
+    func weekDay(index: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(statisticsByDay[index].utc))
+        let celendar = Calendar.current
+        let weekDayNumber = celendar.component(.weekday, from: date)
+        let weekDays = ["", "ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]
+        return weekDays[weekDayNumber]
+    }
+
+    func paddingTemp(index: Int) -> Double {
+        let oneDegree = 140 / (maxStatistic() - minStatistic())
+        return (statisticsByDay[index].min - minStatistic()) * oneDegree
     }
 }
 
