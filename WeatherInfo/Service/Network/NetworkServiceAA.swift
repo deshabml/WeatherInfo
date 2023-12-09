@@ -27,26 +27,26 @@ class NetworkServiceAA {
             throw NetworkError.invalidDecoding
         }
     }
-//
-//    func checkCity(city: CityQuery) async throws -> [String] {
-//        guard let url = URL(string: "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address") else {  throw NetworkError.badUrl }
-//        let encoder = JSONEncoder()
-//        do {
-//            let body = try encoder.encode(city)
-//            do {
-//                var req = URLRequest(url: url)
-//                req.httpMethod = "POST"
-//                req.setValue("application/json" ,forHTTPHeaderField: "Content-type")
-//                req.setValue("application/json" ,forHTTPHeaderField: "Accept")
-//                req.setValue("Token 224925d20efc9ab248696b162dfb8e4d70571825" ,forHTTPHeaderField: "Authorization")
-//                req.httpBody = body
-//                let response = try await URLSession.shared.data(for: req)
-//                let data = response.0
-//                guard let itog = ParsingService.shared.users(from: data) else { throw NetworkError.invalidDecoding }
-//                return itog
-//            } catch { throw error }
-//        } catch { throw error }
-//    }
+
+    func checkCity(city: CityQuery) async throws -> [String] {
+        guard let url = URL(string: "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address") else {  throw NetworkError.badUrl }
+        let encoder = JSONEncoder()
+        do {
+            let body = try encoder.encode(city)
+            do {
+                var req = URLRequest(url: url)
+                req.httpMethod = "POST"
+                req.setValue("application/json" ,forHTTPHeaderField: "Content-type")
+                req.setValue("application/json" ,forHTTPHeaderField: "Accept")
+                req.setValue("Token 224925d20efc9ab248696b162dfb8e4d70571825" ,forHTTPHeaderField: "Authorization")
+                req.httpBody = body
+                let response = try await URLSession.shared.data(for: req)
+                let data = response.0
+                guard let itog = ParsingService.shared.city(from: data) else { throw NetworkError.invalidDecoding }
+                return itog
+            } catch { throw error }
+        } catch { throw error }
+    }
 
     func getStatistics(weatherData: WeatherData) async throws -> [(min: Double, max: Double, pop: Int, utc: Int)] {
         guard let url = URLManager.shared.createOnecallURL(weatherData: weatherData, endpoint: .currentOnecall) else { throw NetworkError.badUrl }

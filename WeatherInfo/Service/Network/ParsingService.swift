@@ -14,18 +14,18 @@ class ParsingService {
 
     private init() { }
 
-//    func users(from data: Data) -> [String]? {
-//        guard let json = try? JSON(data: data) else { return nil }
-//        var citys: [String] = []
-//        let jsons = json["suggestions"]
-//        for index in 0 ..< jsons.count {
-//            let city = jsons[index]["data"]["city"].stringValue
-//            if city.count > 0 {
-//                citys.append(city)
-//            }
-//        }
-//        return Array(Set(citys))
-//    }
+    func city(from data: Data) -> [String]? {
+        guard let json = try? JSON(data: data) else { return nil }
+        var citys: [String] = []
+        let jsons = json["suggestions"]
+        for index in 0 ..< jsons.count {
+            let city = jsons[index]["data"]["city"].stringValue
+            if city.count > 0 {
+                citys.append(city)
+            }
+        }
+        return Array(Set(citys))
+    }
 
     func statisticsDaily(from data: Data) -> [(min: Double, max: Double, pop: Int, utc: Int)]? {
         guard let json = try? JSON(data: data) else { return nil }
