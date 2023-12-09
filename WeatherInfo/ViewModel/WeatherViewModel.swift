@@ -19,16 +19,20 @@ final class WeatherViewModel: ObservableObject {
     @Published var statisticsByDay: [WeatherByDay] = []
     @Published var statisticsByHour: [WeatherByHour] = []
     let cityVM = CityViewModel()
+
     init() {
-        loadFirstCity()
-        getData()
+        if NetworkMonitor.shared.isConnected {
+            loadFirstCity()
+        } else {
+            getData()
+        }
     }
 
     func loadFirstCity() {
         let locationService = LocationService()
         locationService.getCityName { [unowned self] cityName in
             city = cityName.localizedCapitalized
-            getWeather()
+                getWeather()
         }
     }
 
