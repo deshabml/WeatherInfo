@@ -21,10 +21,10 @@ final class WeatherViewModel: ObservableObject {
     let cityVM = CityViewModel()
     init() {
         loadFirstCity()
+        getData()
     }
 
     func loadFirstCity() {
-        getData()
         let locationService = LocationService()
         locationService.getCityName { [unowned self] cityName in
             city = cityName.localizedCapitalized

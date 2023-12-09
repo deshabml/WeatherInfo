@@ -38,6 +38,13 @@ struct WeatherView: View {
                    value: viewModel.citys)
         .animation(.easeInOut(duration: 0.3),
                    value: isShowSearch)
+        .onAppear {
+            if NetworkMonitor.shared.isConnected  {
+                print("Connect")
+            } else {
+                print("Disconnect")
+            }
+        }
     }
     
 }
