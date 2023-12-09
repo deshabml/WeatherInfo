@@ -13,7 +13,6 @@ final class Coordinator: ObservableObject {
     @Published var path = NavigationPath()
     @Published var page: MyPage = .weatherView
     var selectedCity: String = ""
-//    let connectionService = ConnectionService()
 
     init() {
         NetworkMonitor.shared.startMonitoring()
@@ -59,6 +58,4 @@ extension Coordinator {
         guard weatherData.name != "" else { return "-"}
         return "Max: " + tempDescription(weatherData.mainTempMax) + ", min: " + tempDescription(weatherData.mainTempMin)
     }
-
-
 }
