@@ -16,10 +16,14 @@ class NetworkServiceAA {
     func getWeatherData(city: String) async throws -> WeatherData {
         guard let url = URLManager.shared.createURL(city: city,
                                                     endpoint: .currentWeather) else { throw NetworkError.badUrl }
-        let response = try await URLSession.shared.data(from: url)
-        let data = response.0
-        guard let itog = ParsingService.shared.weatherData(from: data) else { throw NetworkError.invalidDecoding }
-        return itog
+        do {
+            let response = try await URLSession.shared.data(from: url)
+            let data = response.0
+            guard let itog = ParsingService.shared.weatherData(from: data) else { throw NetworkError.invalidDecoding }
+            return itog
+        } catch {
+            throw error
+        }
     }
 
     func checkCity(city: CityQuery) async throws -> [String] {

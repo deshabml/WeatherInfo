@@ -29,7 +29,6 @@ class ParsingService {
 
     func weatherData(from data: Data) -> WeatherData? {
         guard let json = try? JSON(data: data) else { return nil }
-        print(json)
         let name = json["name"].stringValue
         let mainTemp = json["main"]["temp"].doubleValue
         let mainTempMin = json["main"]["temp_min"].doubleValue

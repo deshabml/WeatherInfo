@@ -25,52 +25,25 @@ class RealmService {
             print("Неисправность базы данных")
         }
     }
-//
-//    func updateObject<T>(oldObject: T, newObject: T) {
-//        if let oldObject = oldObject as? WeatherData, let newObject = newObject as? WeatherData {
-//            do {
-//                try dataBase.write {
-//                    oldObject.name = newObject.name
-//                    oldObject.ratio = newObject.ratio
-//                    oldObject.isWeight = newObject.isWeight
-//                }
-//            } catch {
-//                print("Неисправность базы данных")
-//            }
-//        }
-//        if let oldObject = oldObject as? Product, let newObject = newObject as? Product {
-//            do {
-//                try dataBase.write {
-//                    oldObject.name = newObject.name
-//                    oldObject.density = newObject.density
-//                }
-//            } catch {
-//                print("Неисправность базы данных")
-//            }
-//        }
-//        if let oldObject = oldObject as? Recipe, let newObject = newObject as? Recipe {
-//            do {
-//                try dataBase.write() {
-//                    oldObject.name = newObject.name
-//                    oldObject.Image = newObject.Image
-//                    oldObject.ingredients = newObject.ingredients
-//                    oldObject.cookingMethod = newObject.cookingMethod
-//                    oldObject.dish = newObject.dish
-//                }
-//            } catch {
-//                print("Неисправность базы данных")
-//            }
-//        }
-//        if let oldObject = oldObject as? Dish, let newObject = newObject as? Dish {
-//            do {
-//                try dataBase.write {
-//                    oldObject.name = newObject.name
-//                }
-//            } catch {
-//                print("Неисправность базы данных")
-//            }
-//        }
-//    }
+
+    func updateObject<T>(oldObject: T, newObject: T) {
+        if let oldObject = oldObject as? WeatherData, let newObject = newObject as? WeatherData {
+            do {
+                try dataBase.write {
+                    oldObject.name = newObject.name
+                    oldObject.mainTemp = newObject.mainTemp
+                    oldObject.mainTempMin = newObject.mainTempMin
+                    oldObject.mainTempMax = newObject.mainTempMax
+                    oldObject.weatherDescription = newObject.weatherDescription
+                    oldObject.weatherIcon = newObject.weatherIcon
+                    oldObject.coordLat = newObject.coordLat
+                    oldObject.coordLon = newObject.coordLon
+                }
+            } catch {
+                print("Неисправность базы данных")
+            }
+        }
+    }
 
     func deleteObject<T>(object: T) {
         guard let object = object as? Object else { return }
@@ -81,5 +54,32 @@ class RealmService {
         } catch {
             print("Неисправность базы данных")
         }
+    }
+
+    func getWeatherData() -> [WeatherData] {
+        let weatherDataList = dataBase.objects(WeatherData.self)
+        var weatherDatas = [WeatherData]()
+        for weatherData in weatherDataList {
+            weatherDatas.append(weatherData)
+        }
+        return weatherDatas
+    }
+
+    func getWeatherByHour() -> [WeatherByHour] {
+        let weatherByHourList = dataBase.objects(WeatherByHour.self)
+        var weatherByHours = [WeatherByHour]()
+        for weatherByHour in weatherByHourList {
+            weatherByHours.append(weatherByHour)
+        }
+        return weatherByHours
+    }
+
+    func getWeatherByDay() -> [WeatherByDay] {
+        let weatherByDayList = dataBase.objects(WeatherByDay.self)
+        var weatherByDays = [WeatherByDay]()
+        for weatherByDay in weatherByDayList {
+            weatherByDays.append(weatherByDay)
+        }
+        return weatherByDays
     }
 }
