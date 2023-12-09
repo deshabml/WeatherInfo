@@ -18,14 +18,8 @@ class NetworkServiceAA {
                                                     endpoint: .currentWeather) else { throw NetworkError.badUrl }
         let response = try await URLSession.shared.data(from: url)
         let data = response.0
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        do {
-            let weatherData = try decoder.decode(WeatherData.self, from: data)
-            return weatherData
-        } catch {
-            throw NetworkError.invalidDecoding
-        }
+        guard let itog = ParsingService.shared.weatherData(from: data) else { throw NetworkError.invalidDecoding }
+        return itog
     }
 
     func checkCity(city: CityQuery) async throws -> [String] {

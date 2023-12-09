@@ -25,6 +25,52 @@ class RealmService {
             print("Неисправность базы данных")
         }
     }
+//
+//    func updateObject<T>(oldObject: T, newObject: T) {
+//        if let oldObject = oldObject as? WeatherData, let newObject = newObject as? WeatherData {
+//            do {
+//                try dataBase.write {
+//                    oldObject.name = newObject.name
+//                    oldObject.ratio = newObject.ratio
+//                    oldObject.isWeight = newObject.isWeight
+//                }
+//            } catch {
+//                print("Неисправность базы данных")
+//            }
+//        }
+//        if let oldObject = oldObject as? Product, let newObject = newObject as? Product {
+//            do {
+//                try dataBase.write {
+//                    oldObject.name = newObject.name
+//                    oldObject.density = newObject.density
+//                }
+//            } catch {
+//                print("Неисправность базы данных")
+//            }
+//        }
+//        if let oldObject = oldObject as? Recipe, let newObject = newObject as? Recipe {
+//            do {
+//                try dataBase.write() {
+//                    oldObject.name = newObject.name
+//                    oldObject.Image = newObject.Image
+//                    oldObject.ingredients = newObject.ingredients
+//                    oldObject.cookingMethod = newObject.cookingMethod
+//                    oldObject.dish = newObject.dish
+//                }
+//            } catch {
+//                print("Неисправность базы данных")
+//            }
+//        }
+//        if let oldObject = oldObject as? Dish, let newObject = newObject as? Dish {
+//            do {
+//                try dataBase.write {
+//                    oldObject.name = newObject.name
+//                }
+//            } catch {
+//                print("Неисправность базы данных")
+//            }
+//        }
+//    }
 
     func deleteObject<T>(object: T) {
         guard let object = object as? Object else { return }
