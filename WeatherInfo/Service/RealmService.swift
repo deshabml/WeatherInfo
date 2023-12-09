@@ -82,4 +82,13 @@ class RealmService {
         }
         return weatherByDays
     }
+
+    func getDataLastSave() -> [DateLastSave] {
+        let dateLastSaveList = dataBase.objects(DateLastSave.self)
+        var dateLastSaves = [DateLastSave]()
+        for dateLastSave in dateLastSaveList {
+            dateLastSaves.append(dateLastSave)
+        }
+        return dateLastSaves
+    }
 }

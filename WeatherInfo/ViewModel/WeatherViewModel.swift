@@ -26,6 +26,41 @@ final class WeatherViewModel: ObservableObject {
         } else {
             getData()
         }
+
+        let dateLastSaveDatas = RealmService.shared.getDataLastSave()
+
+        if !dateLastSaveDatas.isEmpty {
+            let dateLastSave = dateLastSaveDatas[0]
+            print(dateLastSave.date)
+            let currentDate = Date()
+            print(currentDate.offsetFrom(date: dateLastSave.date))
+        }
+
+//        let oldDate = Date()
+//        let oldDateUtc = ISO8601DateFormatter().string(from: oldDate)
+//        let oldDateString = "\(oldDate)"
+//
+//        print(oldDateString)
+//
+//        var dateString: String = "2017-05-04 13:46:36.0"
+//        var dateFormatter1 = DateFormatter()
+//        dateFormatter1.dateFormat = "yyyy-MM-dd HH:mm:ss +SSSS"
+//        var yourDate: Date? = dateFormatter1.date(from: oldDateString)
+////        dateFormatter1.dateFormat = "yyyy-MM-dd"
+//        if let yourDate {
+//            print(yourDate)
+//        }
+//        print(oldDateString)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+//            let newDate = Date()
+//            print(newDate.offsetFrom(date: oldDate))
+//        }
+
+//        let dt = jsons[index]["dt"].doubleValue
+//        let date = Date(timeIntervalSince1970: dt)
+//        let dateString = "\(date)"
+//        let dateStringArray = dateString.components(separatedBy: " ")
+//        let dateHourStringArray = dateStringArray[1].components(separatedBy: ":")
     }
 
     func loadFirstCity() {
@@ -46,6 +81,7 @@ final class WeatherViewModel: ObservableObject {
                     self.getStatisticsByHour()
                     self.getStatisticsByDay()
                     self.saveWeatherDataData()
+                    self.saveDateLastSave()
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -132,6 +168,18 @@ final class WeatherViewModel: ObservableObject {
         }
     }
 
+    func saveDateLastSave() {
+        let currentDate = Date()
+        let currentDateLastSave = DateLastSave(date: currentDate)
+        let dateLastSaveDatas = RealmService.shared.getDataLastSave()
+        if dateLastSaveDatas.isEmpty {
+            RealmService.shared.createObject(object: currentDateLastSave)
+        } else {
+            RealmService.shared.updateObject(oldObject: dateLastSaveDatas[0],
+                                             newObject: currentDateLastSave)
+        }
+    }
+
 
     func getData() {
         self.weatherData = RealmService.shared.getWeatherData()[0]
@@ -178,4 +226,3 @@ final class WeatherViewModel: ObservableObject {
         return (statisticsByDay[index].min - minStatistic()) * oneDegree
     }
 }
-
