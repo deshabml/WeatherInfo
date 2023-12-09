@@ -36,10 +36,12 @@ class ParsingService {
             let max = jsons[index]["temp"]["max"].double ?? 0
             let pop = Int((jsons[index]["pop"].double ?? 0) * 100)
             let utc = jsons[index]["dt"].int ?? 0
+            let imageName = jsons[index]["weather"][0]["icon"].stringValue
             itog.append(WeatherByDay(min: min,
                                      max: max,
                                      pop: pop,
-                                     utc: utc))
+                                     utc: utc,
+                                     imageName: imageName))
         }
         return itog
     }

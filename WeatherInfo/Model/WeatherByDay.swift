@@ -13,4 +13,5 @@ struct WeatherByDay {
     let max: Double
     let pop: Int
     let utc: Int
+    let imageName: String
 }

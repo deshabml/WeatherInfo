@@ -20,6 +20,7 @@ struct WeatherView: View {
                     CityView(viewModel: viewModel.cityVM)
                     temperaturePerDay
                     weatherByHours
+                    statisticByDay
                 }
                 Spacer()
             }
@@ -161,6 +162,54 @@ extension WeatherView {
                 }
                 .padding(.horizontal)
             }
+        }
+    }
+
+    private var statisticByDay: some View {
+        VStack {
+            ForEach(0 ..< viewModel.statisticsByDay.count, id: \.self) { index in
+                    HStack {
+                        Text("\(viewModel.weekDay(index: index))")
+                            .font(.custom("AvenirNext-Bold",
+                                          size: 16))
+                            .frame(width: 30)
+                        Image(viewModel.statisticsByDay[index].imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 30, height: 30)
+                        Text("\(viewModel.statisticsByDay[index].pop)%")
+                            .font(.custom("AvenirNext-Bold",
+                                          size: 16))
+                            .frame(width: 45)
+                        Text("\(coordinator.tempDescription(viewModel.statisticsByDay[index].min))")
+                            .font(.custom("AvenirNext-Bold",
+                                          size: 16))
+                            .frame(width: 40)
+                        temperatureGraph(index: index)
+                        Text("\(coordinator.tempDescription(viewModel.statisticsByDay[index].max))")
+                            .font(.custom("AvenirNext-Bold",
+                                          size: 16))
+                            .frame(width: 40)
+                    }
+                    .font(.custom("AvenirNext", size: 16))
+            }
+        }
+        .padding()
+        .background(Color("BackgroundElement"))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal)
+    }
+
+    private func temperatureGraph(index: Int) -> some View {
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 15)
+                .frame(width: 140, height: 25)
+                .foregroundStyle(.gray)
+                .padding(.leading, 0)
+            RoundedRectangle(cornerRadius: 15)
+                .frame(width: CGFloat(viewModel.widthDeyTemp(index: index)), height: 25)
+                .foregroundStyle(.blue.opacity(0.6))
+                .padding(.leading, CGFloat(viewModel.paddingTemp(index: index)))
         }
     }
 }
