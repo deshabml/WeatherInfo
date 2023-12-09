@@ -46,6 +46,7 @@ final class WeatherViewModel: ObservableObject {
                     self.getStatisticsByHour()
                     self.getStatisticsByDay()
                     self.saveWeatherDataData()
+                    self.saveDateLastSave()
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -132,6 +133,26 @@ final class WeatherViewModel: ObservableObject {
         }
     }
 
+    func saveDateLastSave() {
+        let currentDate = Date()
+        let currentDateLastSave = DateLastSave(date: currentDate)
+        let dateLastSaveDatas = RealmService.shared.getDataLastSave()
+        if dateLastSaveDatas.isEmpty {
+            RealmService.shared.createObject(object: currentDateLastSave)
+        } else {
+            RealmService.shared.updateObject(oldObject: dateLastSaveDatas[0],
+                                             newObject: currentDateLastSave)
+        }
+    }
+
+    func dataRelevanceInterval() -> String {
+        let dateLastSaveDatas = RealmService.shared.getDataLastSave()
+        guard !dateLastSaveDatas.isEmpty else { return "-" }
+        let dateLastSave = dateLastSaveDatas[0]
+        let currentDate = Date()
+        return currentDate.offsetFrom(date: dateLastSave.date) + " назад"
+    }
+
 
     func getData() {
         self.weatherData = RealmService.shared.getWeatherData()[0]
@@ -178,4 +199,3 @@ final class WeatherViewModel: ObservableObject {
         return (statisticsByDay[index].min - minStatistic()) * oneDegree
     }
 }
-

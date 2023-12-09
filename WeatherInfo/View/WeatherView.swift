@@ -31,8 +31,12 @@ struct WeatherView: View {
                                         completionFirst: {
                 isShowSearch = false
             }))
-            searchButton
-            search
+            if NetworkMonitor.shared.isConnected {
+                searchButton
+                search
+            } else {
+                dataRelevanceInterval
+            }
         }
         .animation(.easeInOut(duration: 0.3),
                    value: viewModel.citys)
@@ -197,6 +201,23 @@ extension WeatherView {
         .background(Color("BackgroundElement"))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(.horizontal)
+    }
+
+    private var dataRelevanceInterval: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text(viewModel.dataRelevanceInterval())
+                    .font(.custom("AvenirNext",
+                                  size: 20))
+                    .foregroundStyle(.white)
+                    .padding()
+                    .background(Color("DarkSea"))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .padding(.top, 40)
+            }
+            Spacer()
+        }
     }
 
     private func temperatureGraph(index: Int) -> some View {
