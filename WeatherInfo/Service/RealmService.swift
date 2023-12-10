@@ -43,6 +43,39 @@ class RealmService {
                 print("Неисправность базы данных")
             }
         }
+        if let oldObject = oldObject as? WeatherByHour, let newObject = newObject as? WeatherByHour {
+            do {
+                try dataBase.write {
+                    oldObject.hour = newObject.hour
+                    oldObject.temp = newObject.temp
+                    oldObject.imageName = newObject.imageName
+                }
+            } catch {
+                print("Неисправность базы данных")
+            }
+        }
+        if let oldObject = oldObject as? WeatherByDay, let newObject = newObject as? WeatherByDay {
+            do {
+                try dataBase.write {
+                    oldObject.min = newObject.min
+                    oldObject.max = newObject.max
+                    oldObject.pop = newObject.pop
+                    oldObject.utc = newObject.utc
+                    oldObject.imageName = newObject.imageName
+                }
+            } catch {
+                print("Неисправность базы данных")
+            }
+        }
+        if let oldObject = oldObject as? DateLastSave, let newObject = newObject as? DateLastSave {
+            do {
+                try dataBase.write {
+                    oldObject.date = newObject.date
+                }
+            } catch {
+                print("Неисправность базы данных")
+            }
+        }
     }
 
     func deleteObject<T>(object: T) {

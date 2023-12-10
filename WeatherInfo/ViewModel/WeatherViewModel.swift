@@ -150,12 +150,15 @@ final class WeatherViewModel: ObservableObject {
         guard !dateLastSaveDatas.isEmpty else { return "-" }
         let dateLastSave = dateLastSaveDatas[0]
         let currentDate = Date()
-        return currentDate.offsetFrom(date: dateLastSave.date) + " назад"
+        return currentDate.offsetFrom(date: dateLastSave.date) + " " + "ago".localized
     }
 
 
     func getData() {
-        self.weatherData = RealmService.shared.getWeatherData()[0]
+        let weatherDatas = RealmService.shared.getWeatherData()
+        if !weatherDatas.isEmpty {
+            self.weatherData = weatherDatas[0]
+        }
         self.statisticsByHour = RealmService.shared.getWeatherByHour()
         self.statisticsByDay = RealmService.shared.getWeatherByDay()
         self.cityVM.setupText(text: weatherData.name)
@@ -190,7 +193,14 @@ final class WeatherViewModel: ObservableObject {
         let date = Date(timeIntervalSince1970: TimeInterval(statisticsByDay[index].utc))
         let celendar = Calendar.current
         let weekDayNumber = celendar.component(.weekday, from: date)
-        let weekDays = ["", "ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"]
+        let weekDays = ["",
+                        "sunday".localized,
+                        "monday".localized,
+                        "tuesday".localized,
+                        "wednesday".localized,
+                        "thursday".localized,
+                        "friday".localized,
+                        "saturday".localized]
         return weekDays[weekDayNumber]
     }
 

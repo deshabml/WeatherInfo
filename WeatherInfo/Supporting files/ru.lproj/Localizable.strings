@@ -9,3 +9,23 @@
 "max" = "Макс";
 "min" = "мин";
 "language" = "язык";
+"now" = "Сейчас";
+"forecastForTheNextSixHours" = "Прогноз на следующие 6 часов:";
+"city" = "Город";
+"ago" = "назад";
+"sunday" = "ВС";
+"monday" = "ПН";
+"tuesday" = "ВТ";
+"wednesday" = "СР";
+"thursday" = "ЧТ";
+"friday" = "ПТ";
+"saturday" = "СБ";
+"seconds" = "с";
+"minutes" = "м";
+"hours" = "ч";
+"days" = "д";
+
+
+
+
+
