@@ -56,6 +56,6 @@ extension Coordinator {
 
     func temperatureRange(weatherData: WeatherData) -> String {
         guard weatherData.name != "" else { return "-"}
-        return "Max: " + tempDescription(weatherData.mainTempMax) + ", min: " + tempDescription(weatherData.mainTempMin)
+        return "max".localized + ": " + tempDescription(weatherData.mainTempMax) + ", " + "min".localized + ": " + tempDescription(weatherData.mainTempMin)
     }
 }
