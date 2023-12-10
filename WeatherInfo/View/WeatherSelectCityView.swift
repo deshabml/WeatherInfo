@@ -39,7 +39,7 @@ extension WeatherSelectCityView {
         VStack(spacing: 6) {
             Text(coordinator.tempDescription(viewModel.weatherData.mainTemp))
                 .font(.custom("AvenirNext-Bold",
-                              size: 60))
+                              size: 48))
             Divider()
                 .background(.white)
             if viewModel.weatherData.weatherIcon.isEmpty {
