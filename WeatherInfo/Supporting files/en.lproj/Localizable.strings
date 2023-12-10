@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  WeatherInfo
+
+  Created by Лаборатория on 10.12.2023.
+  
+*/
+
+"max" = "Max";
+"min" = "min";
+"language" = "language";
+"now" = "Now";
+"forecastForTheNextSixHours" = "Forecast for the next 6 hours:";
+"city" = "City";
+"ago" = "ago";
+"sunday" = "SU";
+"monday" = "M";
+"tuesday" = "T";
+"wednesday" = "W";
+"thursday" = "TH";
+"friday" = "F";
+"saturday" = "SA";
+"seconds" = "s";
+"minutes" = "m";
+"hours" = "h";
+"days" = "d";

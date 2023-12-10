@@ -11,5 +11,5 @@ struct CityQuery: Encodable {
 
     let query: String
     let count: Int
-    let language: String = "en"
+    let language: String = ("language".localized == "язык") ? "ru" : "en"
 }

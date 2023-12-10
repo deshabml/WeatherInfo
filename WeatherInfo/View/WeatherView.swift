@@ -12,6 +12,7 @@ struct WeatherView: View {
     @EnvironmentObject var coordinator: Coordinator
     @StateObject var viewModel: WeatherViewModel
     @State var isShowSearch = false
+    @State var isShowStatisticByDay = true
 
     var body: some View {
         ZStack {
@@ -20,33 +21,39 @@ struct WeatherView: View {
                     CityView(viewModel: viewModel.cityVM)
                     temperaturePerDay
                     weatherByHours
-                    statisticByDay
+                    if isShowStatisticByDay {
+                        statisticByDay
+                    }
                 }
                 Spacer()
             }
             .onTapGesture {
-                isShowSearch = false
+                completingCityEditing()
             }
             .modifier(BackgroundElement(isFirstSreen: true,
                                         completionFirst: {
-                isShowSearch = false
+                completingCityEditing()
             }))
             if NetworkMonitor.shared.isConnected {
-                searchButton
-                search
+                    searchButton
+                    search
+                    Spacer()
             } else {
                 dataRelevanceInterval
             }
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .animation(.easeInOut(duration: 0.3),
                    value: viewModel.citys)
         .animation(.easeInOut(duration: 0.3),
                    value: isShowSearch)
+        .animation(.easeInOut(duration: 0.3),
+                   value: isShowStatisticByDay)
     }
 }
 
 #Preview {
-    
+
     WeatherView(viewModel: WeatherViewModel())
         .environmentObject(Coordinator())
 }
@@ -76,7 +83,7 @@ extension WeatherView {
     private var weatherByHours: some View {
         VStack {
             HStack {
-                Text("Прогноз на следующие 6 часов:")
+                Text("forecastForTheNextSixHours".localized)
                     .font(.custom("AvenirNext-Bold",
                                   size: 16))
                 Spacer()
@@ -87,7 +94,7 @@ extension WeatherView {
                 HStack(spacing: 10) {
                     ForEach(0 ..< viewModel.statisticsByHour.count, id: \.self) { index in
                         VStack(spacing: 0) {
-                            Text((index == 0) ? "Сейчас" : viewModel.statisticsByHour[index].hour)
+                            Text((index == 0) ? "now".localized : viewModel.statisticsByHour[index].hour)
                                 .font(.custom("AvenirNext-Bold",
                                               size: 16))
                             Image(viewModel.statisticsByHour[index].imageName)
@@ -114,12 +121,13 @@ extension WeatherView {
             HStack {
                 Spacer()
                 Button {
+                    isShowStatisticByDay = false
                     isShowSearch.toggle()
                 } label: {
                     Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, 
+                        .frame(width: 40,
                                height: 40)
                         .foregroundColor(.white)
                 }
@@ -134,7 +142,7 @@ extension WeatherView {
             if isShowSearch {
                 VStack {
                     VStack {
-                        TextField("Город", text: $viewModel.city)
+                        TextField("city".localized, text: $viewModel.city)
                             .font(.custom("AvenirNext-Bold",
                                           size: 20))
                             .padding()
@@ -143,11 +151,12 @@ extension WeatherView {
                             .background(.black)
                         ForEach(0 ..< viewModel.citys.count, id: \.self) { index in
                             Button {
+                                completingCityEditing()
                                 coordinator.goToWeatherSelectCity(city: viewModel.citys[index])
                             } label: {
                                 HStack {
                                     Text(viewModel.citys[index])
-                                        .font(.custom("AvenirNext", 
+                                        .font(.custom("AvenirNext",
                                                       size: 18))
                                         .padding()
                                         .foregroundColor(.black)
@@ -157,12 +166,14 @@ extension WeatherView {
                             Divider()
                                 .background(.black)
                                 .padding(.horizontal)
+
                         }
                     }
                     .background(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     Spacer()
                 }
+                .frame(maxHeight: .infinity)
                 .padding(.horizontal)
             }
         }
@@ -171,30 +182,30 @@ extension WeatherView {
     private var statisticByDay: some View {
         VStack {
             ForEach(0 ..< viewModel.statisticsByDay.count, id: \.self) { index in
-                    HStack {
-                        Text("\(viewModel.weekDay(index: index))")
-                            .font(.custom("AvenirNext-Bold",
-                                          size: 16))
-                            .frame(width: 30)
-                        Image(viewModel.statisticsByDay[index].imageName)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 30, height: 30)
-                        Text("\(viewModel.statisticsByDay[index].pop)%")
-                            .font(.custom("AvenirNext-Bold",
-                                          size: 16))
-                            .frame(width: 45)
-                        Text("\(coordinator.tempDescription(viewModel.statisticsByDay[index].min))")
-                            .font(.custom("AvenirNext-Bold",
-                                          size: 16))
-                            .frame(width: 40)
-                        temperatureGraph(index: index)
-                        Text("\(coordinator.tempDescription(viewModel.statisticsByDay[index].max))")
-                            .font(.custom("AvenirNext-Bold",
-                                          size: 16))
-                            .frame(width: 40)
-                    }
-                    .font(.custom("AvenirNext", size: 16))
+                HStack {
+                    Text("\(viewModel.weekDay(index: index))")
+                        .font(.custom("AvenirNext-Bold",
+                                      size: 16))
+                        .frame(width: 30)
+                    Image(viewModel.statisticsByDay[index].imageName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                    Text("\(viewModel.statisticsByDay[index].pop)%")
+                        .font(.custom("AvenirNext-Bold",
+                                      size: 16))
+                        .frame(width: 45)
+                    Text("\(coordinator.tempDescription(viewModel.statisticsByDay[index].min))")
+                        .font(.custom("AvenirNext-Bold",
+                                      size: 16))
+                        .frame(width: 40)
+                    temperatureGraph(index: index)
+                    Text("\(coordinator.tempDescription(viewModel.statisticsByDay[index].max))")
+                        .font(.custom("AvenirNext-Bold",
+                                      size: 16))
+                        .frame(width: 40)
+                }
+                .font(.custom("AvenirNext", size: 16))
             }
         }
         .padding()
@@ -230,6 +241,13 @@ extension WeatherView {
                 .frame(width: CGFloat(viewModel.widthDeyTemp(index: index)), height: 25)
                 .foregroundStyle(.blue.opacity(0.6))
                 .padding(.leading, CGFloat(viewModel.paddingTemp(index: index)))
+        }
+    }
+
+    private func completingCityEditing() {
+        isShowSearch = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            isShowStatisticByDay = true
         }
     }
 }

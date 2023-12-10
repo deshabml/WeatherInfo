@@ -24,7 +24,8 @@ class URLManager {
     private let server = "api.openweathermap.org"
 
     func createURL(city: String, endpoint: Endpoint) -> URL? {
-        var str = gateway + server + endpoint.rawValue + "?lang=ru"
+        let language = ("language".localized == "язык") ? "ru" : "en"
+        var str = gateway + server + endpoint.rawValue + "?lang=" + language
         str += "&appid=\(apiKey)&q=\(city)"
         let url = URL(string: str)
         return url

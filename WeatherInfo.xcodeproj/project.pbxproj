@@ -26,6 +26,8 @@
 		DD4844972B24BE9B00DA6025 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4844962B24BE9B00DA6025 /* NetworkMonitor.swift */; };
 		DD4844992B24FD7600DA6025 /* DateLastSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4844982B24FD7600DA6025 /* DateLastSave.swift */; };
 		DD48449C2B25029100DA6025 /* Date.offsetFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD48449B2B25029100DA6025 /* Date.offsetFrom.swift */; };
+		DD48449F2B250D7D00DA6025 /* String.localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD48449E2B250D7D00DA6025 /* String.localized.swift */; };
+		DD4844A22B250E5400DA6025 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DD4844A42B250E5400DA6025 /* Localizable.strings */; };
 		DDC158912B22F754005CF73A /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158902B22F754005CF73A /* URLManager.swift */; };
 		DDC158942B22F785005CF73A /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC158932B22F785005CF73A /* WeatherData.swift */; };
 		DDC158972B22F7F4005CF73A /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = DDC158962B22F7F4005CF73A /* SwiftyJSON */; };
@@ -57,6 +59,10 @@
 		DD4844962B24BE9B00DA6025 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		DD4844982B24FD7600DA6025 /* DateLastSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateLastSave.swift; sourceTree = "<group>"; };
 		DD48449B2B25029100DA6025 /* Date.offsetFrom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.offsetFrom.swift; sourceTree = "<group>"; };
+		DD48449D2B250B1400DA6025 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD48449E2B250D7D00DA6025 /* String.localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.localized.swift; sourceTree = "<group>"; };
+		DD4844A32B250E5400DA6025 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD4844A52B250E5700DA6025 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DDC158902B22F754005CF73A /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		DDC158932B22F785005CF73A /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		DDC158992B22F89F005CF73A /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
@@ -127,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				DD0EE8CB2B22401C00DE6B8C /* Assets.xcassets */,
+				DD48449D2B250B1400DA6025 /* Info.plist */,
+				DD4844A42B250E5400DA6025 /* Localizable.strings */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -168,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				DD48449B2B25029100DA6025 /* Date.offsetFrom.swift */,
+				DD48449E2B250D7D00DA6025 /* String.localized.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -282,6 +291,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = DD0EE8BB2B22401900DE6B8C;
 			packageReferences = (
@@ -303,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD0EE8CF2B22401C00DE6B8C /* Preview Assets.xcassets in Resources */,
+				DD4844A22B250E5400DA6025 /* Localizable.strings in Resources */,
 				DD0EE8CC2B22401C00DE6B8C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,6 +334,7 @@
 				DD4844972B24BE9B00DA6025 /* NetworkMonitor.swift in Sources */,
 				DD48449C2B25029100DA6025 /* Date.offsetFrom.swift in Sources */,
 				DDC1589D2B22F8DB005CF73A /* WeatherViewModel.swift in Sources */,
+				DD48449F2B250D7D00DA6025 /* String.localized.swift in Sources */,
 				DD48447D2B23BC1C00DA6025 /* Coordinator.swift in Sources */,
 				DD0EE8C82B22401A00DE6B8C /* WeatherInfoApp.swift in Sources */,
 				DD48447B2B23BB7A00DA6025 /* MyPage.swift in Sources */,
@@ -342,6 +354,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DD4844A42B250E5400DA6025 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD4844A32B250E5400DA6025 /* en */,
+				DD4844A52B250E5700DA6025 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DD0EE8D02B22401C00DE6B8C /* Debug */ = {
@@ -474,10 +498,10 @@
 				DEVELOPMENT_TEAM = 62VLSN5H88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WeatherInfo/Supporting files/Info.plist";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Необходим доступ к  местоположению, чтобы определить город";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,10 +531,10 @@
 				DEVELOPMENT_TEAM = 62VLSN5H88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WeatherInfo/Supporting files/Info.plist";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Необходим доступ к  местоположению, чтобы определить город";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
