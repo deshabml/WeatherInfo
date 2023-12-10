@@ -50,7 +50,9 @@ extension Coordinator {
 
     func tempDescription(_ temp: Double) -> String {
         guard temp != 0 else { return "-" }
-        let res = "\(Int(temp - 273))°С"
+        let tempC = Int(temp - 273)
+        let tempF = Int((temp - 273) * 1.8 + 32)
+        let res = ("language".localized == "язык") ? "\(tempC)°С" : "\(tempF)°F"
         return res
     }
 
