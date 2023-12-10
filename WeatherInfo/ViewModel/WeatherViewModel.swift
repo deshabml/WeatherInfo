@@ -186,7 +186,7 @@ final class WeatherViewModel: ObservableObject {
 
     func widthDeyTemp(index: Int) -> Double {
         let ratio = (maxStatistic() - minStatistic()) / (statisticsByDay[index].max - statisticsByDay[index].min)
-        return 140 / ratio
+        return 100 / ratio
     }
 
     func weekDay(index: Int) -> String {
@@ -205,7 +205,7 @@ final class WeatherViewModel: ObservableObject {
     }
 
     func paddingTemp(index: Int) -> Double {
-        let oneDegree = 140 / (maxStatistic() - minStatistic())
+        let oneDegree = 100 / (maxStatistic() - minStatistic())
         return (statisticsByDay[index].min - minStatistic()) * oneDegree
     }
 }

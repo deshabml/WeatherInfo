@@ -187,10 +187,12 @@ extension WeatherView {
                         .font(.custom("AvenirNext-Bold",
                                       size: 16))
                         .frame(width: 30)
+                    Spacer()
                     Image(viewModel.statisticsByDay[index].imageName)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 30, height: 30)
+                    Spacer()
                     Text("\(viewModel.statisticsByDay[index].pop)%")
                         .font(.custom("AvenirNext-Bold",
                                       size: 16))
@@ -234,7 +236,7 @@ extension WeatherView {
     private func temperatureGraph(index: Int) -> some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 15)
-                .frame(width: 140, height: 25)
+                .frame(width: 100, height: 25)
                 .foregroundStyle(.gray)
                 .padding(.leading, 0)
             RoundedRectangle(cornerRadius: 15)
