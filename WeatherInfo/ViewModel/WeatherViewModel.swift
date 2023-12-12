@@ -32,7 +32,7 @@ final class WeatherViewModel: ObservableObject {
         let locationService = LocationService()
         locationService.getCityName { [unowned self] cityName in
             city = cityName.localizedCapitalized
-                getWeather()
+            getWeather()
         }
     }
 

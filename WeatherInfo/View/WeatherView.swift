@@ -66,11 +66,13 @@ extension WeatherView {
                 Text(coordinator.tempDescription(viewModel.weatherData.mainTemp))
                     .font(.custom("AvenirNext-Bold",
                                   size: 48))
-                Image(viewModel.weatherData.weatherIcon)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80,
-                           height: 80)
+                if !viewModel.weatherData.weatherIcon.isEmpty {
+                    Image(viewModel.weatherData.weatherIcon)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 80,
+                               height: 80)
+                }
             }
                 .background(
                     Color("DarkSea").blur(radius: 20))

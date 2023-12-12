@@ -11,6 +11,7 @@ class LocationService: NSObject {
 
     private var locationManager = CLLocationManager()
     private var completion: ((String) -> ())?
+    private var isSuccess: Bool = false
 
     override init() {
         super.init()
@@ -24,9 +25,16 @@ extension LocationService: CLLocationManagerDelegate {
 
     func getCityName(completion: @escaping (String) -> ()) {
         self.completion = completion
+        getLocation()
+    }
+
+    func getLocation() {
         locationManager.startUpdatingLocation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
             self.locationManager.stopUpdatingLocation()
+            if !self.isSuccess {
+                self.getLocation()
+            }
         }
     }
 
@@ -38,10 +46,15 @@ extension LocationService: CLLocationManagerDelegate {
                 return
             }
             if let city = mark.locality {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [unowned self] in
                     self.completion?(city)
+                    self.isSuccess = true
                 }
             }
         }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
 }
